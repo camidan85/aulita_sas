@@ -20,7 +20,8 @@ class DashboardController extends Controller
             return redirect()->route('portal.dashboard');
         }
 
-        if (auth()->user()?->hasRole('super_admin')) {
+        // Super Admin sin escuela seleccionada → su panel; con escuela → dashboard de esa escuela.
+        if (auth()->user()?->hasRole('super_admin') && ! session()->has('admin_school_id')) {
             return redirect()->route('admin.escuelas.index');
         }
 

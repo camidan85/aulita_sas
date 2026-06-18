@@ -35,7 +35,7 @@ Route::post('activar/{token}', [ActivacionController::class, 'crear'])->name('ac
 Route::get('/dashboard', [DashboardController::class, 'index'])
     ->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::middleware(['auth', 'verified'])->group(function () {
+Route::middleware(['auth', 'verified', 'tenant'])->group(function () {
     // Carga masiva (antes del resource para no chocar con alumnos/{alumno}).
     Route::get('alumnos/plantilla', [AlumnoController::class, 'plantilla'])
         ->name('alumnos.plantilla')->middleware('permission:alumnos.crear');
@@ -148,6 +148,8 @@ Route::middleware(['auth', 'verified', 'role:super_admin'])->prefix('admin')->na
     Route::post('escuelas', [EscuelaController::class, 'store'])->name('escuelas.store');
     Route::get('escuelas/{escuela}/editar', [EscuelaController::class, 'edit'])->name('escuelas.edit');
     Route::put('escuelas/{escuela}', [EscuelaController::class, 'update'])->name('escuelas.update');
+    Route::post('escuelas/{escuela}/seleccionar', [EscuelaController::class, 'seleccionar'])->name('escuelas.seleccionar');
+    Route::post('salir-escuela', [EscuelaController::class, 'salir'])->name('salir');
 });
 
 Route::middleware('auth')->group(function () {

@@ -26,6 +26,26 @@ class EscuelaController extends Controller
         return view('admin.escuelas.index', compact('escuelas'));
     }
 
+    /**
+     * El Super Admin entra al contexto de una escuela para gestionarla.
+     */
+    public function seleccionar(Request $request, School $escuela)
+    {
+        $request->session()->put('admin_school_id', $escuela->id);
+
+        return redirect()->route('dashboard')->with('status', "Gestionando: {$escuela->nombre}");
+    }
+
+    /**
+     * Sale del contexto de escuela y vuelve al panel.
+     */
+    public function salir(Request $request)
+    {
+        $request->session()->forget('admin_school_id');
+
+        return redirect()->route('admin.escuelas.index')->with('status', 'Saliste del contexto de escuela.');
+    }
+
     public function create(): View
     {
         return view('admin.escuelas.create', ['modulos' => Modulos::DISPONIBLES]);

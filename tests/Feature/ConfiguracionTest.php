@@ -77,6 +77,31 @@ class ConfiguracionTest extends TestCase
         $this->actingAs($director)->get(route('reportes.index'))->assertOk();
     }
 
+    public function test_super_admin_sin_escuela_es_redirigido_al_panel(): void
+    {
+        $super = User::factory()->create(['school_id' => null, 'email_verified_at' => now()]);
+        $super->assignRole('super_admin');
+
+        $this->actingAs($super)->get(route('alumnos.index'))
+            ->assertRedirect(route('admin.escuelas.index'));
+    }
+
+    public function test_super_admin_selecciona_y_gestiona_una_escuela(): void
+    {
+        $school = School::factory()->create();
+        $super = User::factory()->create(['school_id' => null, 'email_verified_at' => now()]);
+        $super->assignRole('super_admin');
+
+        // Selecciona la escuela.
+        $this->actingAs($super)->post(route('admin.escuelas.seleccionar', $school))
+            ->assertRedirect(route('dashboard'))
+            ->assertSessionHas('admin_school_id', $school->id);
+
+        // Con la escuela en sesión, opera dentro de ella.
+        $this->actingAs($super)->withSession(['admin_school_id' => $school->id])
+            ->get(route('alumnos.index'))->assertOk();
+    }
+
     public function test_super_admin_gestiona_escuelas_y_modulos(): void
     {
         $super = User::factory()->create(['school_id' => null, 'email_verified_at' => now()]);

@@ -24,6 +24,16 @@
                             {{ __('Escuelas') }}
                         </x-nav-link>
                     </li>
+                    @if (session('admin_school_id'))
+                        @php($escActiva = app(\App\Tenancy\TenantManager::class)->school())
+                        <li class="nav-item d-flex align-items-center gap-1 px-2">
+                            <span class="badge bg-warning text-dark">Gestionando: {{ $escActiva?->nombre }}</span>
+                            <form method="POST" action="{{ route('admin.salir') }}">
+                                @csrf
+                                <button class="btn btn-sm btn-link p-0 text-danger text-decoration-none">salir</button>
+                            </form>
+                        </li>
+                    @endif
                 @endrole
 
                 @can('portal.ver')

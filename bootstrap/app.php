@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Middleware\EnsureModuloActivo;
+use App\Http\Middleware\EnsureTenant;
 use App\Http\Middleware\ResolveTenant;
 use App\Http\Middleware\SecurityHeaders;
 use Illuminate\Foundation\Application;
@@ -29,6 +30,7 @@ return Application::configure(basePath: dirname(__DIR__))
             'permission' => PermissionMiddleware::class,
             'role_or_permission' => RoleOrPermissionMiddleware::class,
             'modulo' => EnsureModuloActivo::class,
+            'tenant' => EnsureTenant::class,
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {

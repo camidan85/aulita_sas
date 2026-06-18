@@ -25,6 +25,10 @@
                                 <span class="badge bg-{{ $e->estatus === 'activa' ? 'success' : 'secondary' }}">{{ ucfirst($e->estatus) }}</span>
                             </td>
                             <td class="text-end">
+                                <form method="POST" action="{{ route('admin.escuelas.seleccionar', $e) }}" class="d-inline">
+                                    @csrf
+                                    <button class="btn btn-sm btn-success">Gestionar</button>
+                                </form>
                                 <a href="{{ route('admin.escuelas.edit', $e) }}" class="btn btn-sm btn-outline-primary">Configurar</a>
                             </td>
                         </tr>

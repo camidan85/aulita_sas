@@ -19,8 +19,14 @@ class ResolveTenant
     {
         $user = $request->user();
 
-        if ($user && $user->school_id) {
-            $this->tenant->setSchoolId((int) $user->school_id);
+        if ($user) {
+            if ($user->school_id) {
+                // Usuario de escuela: su tenant es su propia escuela.
+                $this->tenant->setSchoolId((int) $user->school_id);
+            } elseif ($user->hasRole('super_admin') && $request->session()->has('admin_school_id')) {
+                // Super Admin: opera sobre la escuela que haya seleccionado.
+                $this->tenant->setSchoolId((int) $request->session()->get('admin_school_id'));
+            }
         }
 
         return $next($request);
