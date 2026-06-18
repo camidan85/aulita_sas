@@ -2,13 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\AlumnosPlantillaExport;
 use App\Http\Requests\StoreAlumnoRequest;
 use App\Http\Requests\UpdateAlumnoRequest;
+use App\Imports\AlumnosImport;
 use App\Models\Alumno;
 use App\Models\Grupo;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 use Illuminate\View\View;
+use Maatwebsite\Excel\Facades\Excel;
 
 class AlumnoController extends Controller
 {
@@ -75,6 +78,31 @@ class AlumnoController extends Controller
 
         return redirect()->route('alumnos.index')
             ->with('status', 'Alumno dado de baja.');
+    }
+
+    public function plantilla()
+    {
+        abort_unless(request()->user()->can('alumnos.crear'), 403);
+
+        return Excel::download(new AlumnosPlantillaExport, 'plantilla-alumnos.xlsx');
+    }
+
+    public function importar(Request $request)
+    {
+        abort_unless($request->user()->can('alumnos.crear'), 403);
+
+        $request->validate([
+            'archivo' => ['required', 'file', 'mimes:xlsx,xls,csv', 'max:5120'],
+        ]);
+
+        $import = new AlumnosImport;
+        Excel::import($import, $request->file('archivo'));
+
+        $msg = "Importados: {$import->importados}. Omitidos: {$import->omitidos}.";
+
+        return redirect()->route('alumnos.index')
+            ->with('status', $msg)
+            ->with('import_errores', array_slice($import->errores, 0, 15));
     }
 
     /**

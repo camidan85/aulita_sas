@@ -54,9 +54,7 @@ class AsistenciaVistasTest extends TestCase
             ->assertOk()
             ->assertSee('</svg>', false);
 
-        $this->assertDatabaseHas('qr_tokens', [
-            'alumno_id' => $this->alumno->id,
-            'activo' => true,
-        ]);
+        // El codigo_qr se materializó según la plantilla de la escuela.
+        $this->assertNotNull($this->alumno->fresh()->codigo_qr);
     }
 }

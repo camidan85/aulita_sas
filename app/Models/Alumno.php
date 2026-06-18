@@ -4,6 +4,8 @@ namespace App\Models;
 
 use App\Models\Concerns\Auditable;
 use App\Models\Concerns\BelongsToSchool;
+use App\Observers\AlumnoObserver;
+use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -12,6 +14,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
+#[ObservedBy([AlumnoObserver::class])]
 class Alumno extends Model
 {
     use Auditable, BelongsToSchool, HasFactory, SoftDeletes;
@@ -19,7 +22,7 @@ class Alumno extends Model
     protected $table = 'alumnos';
 
     protected $fillable = [
-        'school_id', 'grupo_id', 'matricula', 'nombre',
+        'school_id', 'grupo_id', 'matricula', 'codigo_qr', 'nombre',
         'apellido_paterno', 'apellido_materno', 'curp', 'fecha_nacimiento',
         'sexo', 'correo', 'telefono', 'fotografia', 'estatus',
     ];

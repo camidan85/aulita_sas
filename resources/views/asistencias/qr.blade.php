@@ -14,6 +14,7 @@
                     <div class="fw-semibold">{{ $alumno->nombreCompleto() }}</div>
                     <div class="text-muted small font-monospace">{{ $alumno->matricula }}</div>
                     <div class="text-muted small">{{ $alumno->grupo?->nombreCompleto() }}</div>
+                    <div class="badge bg-light text-dark border mt-1 font-monospace">{{ $alumno->codigo_qr }}</div>
 
                     <button onclick="window.print()" class="btn btn-outline-primary btn-sm mt-3">Imprimir</button>
                 </div>

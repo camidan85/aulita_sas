@@ -76,8 +76,8 @@ class AsistenciaController extends Controller
 
     public function qr(Alumno $alumno): View
     {
-        $token = $this->qr->tokenActivo($alumno);
-        $svg = $this->qr->svg($token, 240);
+        $svg = $this->qr->svg($alumno, 240);
+        $alumno->setRelation('school', $alumno->school);
 
         return view('asistencias.qr', compact('alumno', 'svg'));
     }

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Middleware\EnsureModuloActivo;
 use App\Http\Middleware\ResolveTenant;
 use App\Http\Middleware\SecurityHeaders;
 use Illuminate\Foundation\Application;
@@ -22,11 +23,12 @@ return Application::configure(basePath: dirname(__DIR__))
             SecurityHeaders::class,
         ]);
 
-        // Alias del middleware de roles/permisos de Spatie.
+        // Alias del middleware de roles/permisos de Spatie + visibilidad de módulos.
         $middleware->alias([
             'role' => RoleMiddleware::class,
             'permission' => PermissionMiddleware::class,
             'role_or_permission' => RoleOrPermissionMiddleware::class,
+            'modulo' => EnsureModuloActivo::class,
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {

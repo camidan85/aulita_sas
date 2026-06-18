@@ -18,17 +18,29 @@
                     </x-nav-link>
                 </li>
 
+                @role('super_admin')
+                    <li class="nav-item">
+                        <x-nav-link :href="route('admin.escuelas.index')" :active="request()->routeIs('admin.*')">
+                            {{ __('Escuelas') }}
+                        </x-nav-link>
+                    </li>
+                @endrole
+
                 @can('portal.ver')
-                    <li class="nav-item">
-                        <x-nav-link :href="route('portal.dashboard')" :active="request()->routeIs('portal.*')">
-                            {{ __('Mi portal') }}
-                        </x-nav-link>
-                    </li>
-                    <li class="nav-item">
-                        <x-nav-link :href="route('citas.index')" :active="request()->routeIs('citas.*')">
-                            {{ __('Citas') }}
-                        </x-nav-link>
-                    </li>
+                    @modulo('portal')
+                        <li class="nav-item">
+                            <x-nav-link :href="route('portal.dashboard')" :active="request()->routeIs('portal.*')">
+                                {{ __('Mi portal') }}
+                            </x-nav-link>
+                        </li>
+                    @endmodulo
+                    @modulo('citas')
+                        <li class="nav-item">
+                            <x-nav-link :href="route('citas.index')" :active="request()->routeIs('citas.*')">
+                                {{ __('Citas') }}
+                            </x-nav-link>
+                        </li>
+                    @endmodulo
                 @endcan
 
                 @can('alumnos.ver')
@@ -48,56 +60,70 @@
                 @endcan
 
                 @can('asistencias.registrar')
-                    <li class="nav-item">
-                        <x-nav-link :href="route('asistencias.escanear')" :active="request()->routeIs('asistencias.escanear')">
-                            {{ __('Escanear QR') }}
-                        </x-nav-link>
-                    </li>
+                    @modulo('asistencia')
+                        <li class="nav-item">
+                            <x-nav-link :href="route('asistencias.escanear')" :active="request()->routeIs('asistencias.escanear')">
+                                {{ __('Escanear QR') }}
+                            </x-nav-link>
+                        </li>
+                    @endmodulo
                 @endcan
 
                 @can('asistencias.ver')
-                    <li class="nav-item">
-                        <x-nav-link :href="route('asistencias.index')" :active="request()->routeIs('asistencias.index')">
-                            {{ __('Asistencias') }}
-                        </x-nav-link>
-                    </li>
-                    <li class="nav-item">
-                        <x-nav-link :href="route('alertas.index')" :active="request()->routeIs('alertas.*')">
-                            {{ __('Alertas') }}
-                        </x-nav-link>
-                    </li>
+                    @modulo('asistencia')
+                        <li class="nav-item">
+                            <x-nav-link :href="route('asistencias.index')" :active="request()->routeIs('asistencias.index')">
+                                {{ __('Asistencias') }}
+                            </x-nav-link>
+                        </li>
+                    @endmodulo
+                    @modulo('alertas')
+                        <li class="nav-item">
+                            <x-nav-link :href="route('alertas.index')" :active="request()->routeIs('alertas.*')">
+                                {{ __('Alertas') }}
+                            </x-nav-link>
+                        </li>
+                    @endmodulo
                 @endcan
 
                 @can('calificaciones.ver')
-                    <li class="nav-item">
-                        <x-nav-link :href="route('calificaciones.index')" :active="request()->routeIs('calificaciones.*')">
-                            {{ __('Calificaciones') }}
-                        </x-nav-link>
-                    </li>
+                    @modulo('calificaciones')
+                        <li class="nav-item">
+                            <x-nav-link :href="route('calificaciones.index')" :active="request()->routeIs('calificaciones.*')">
+                                {{ __('Calificaciones') }}
+                            </x-nav-link>
+                        </li>
+                    @endmodulo
                 @endcan
 
                 @can('reportes.ver')
-                    <li class="nav-item">
-                        <x-nav-link :href="route('reportes.index')" :active="request()->routeIs('reportes.*')">
-                            {{ __('Reportes') }}
-                        </x-nav-link>
-                    </li>
+                    @modulo('reportes')
+                        <li class="nav-item">
+                            <x-nav-link :href="route('reportes.index')" :active="request()->routeIs('reportes.*')">
+                                {{ __('Reportes') }}
+                            </x-nav-link>
+                        </li>
+                    @endmodulo
                 @endcan
 
                 @can('avisos.ver')
-                    <li class="nav-item">
-                        <x-nav-link :href="route('avisos.index')" :active="request()->routeIs('avisos.*')">
-                            {{ __('Avisos') }}
-                        </x-nav-link>
-                    </li>
+                    @modulo('avisos')
+                        <li class="nav-item">
+                            <x-nav-link :href="route('avisos.index')" :active="request()->routeIs('avisos.*')">
+                                {{ __('Avisos') }}
+                            </x-nav-link>
+                        </li>
+                    @endmodulo
                 @endcan
 
                 @can('bitacora.ver')
-                    <li class="nav-item">
-                        <x-nav-link :href="route('bitacora.index')" :active="request()->routeIs('bitacora.*')">
-                            {{ __('Auditoría') }}
-                        </x-nav-link>
-                    </li>
+                    @modulo('bitacora')
+                        <li class="nav-item">
+                            <x-nav-link :href="route('bitacora.index')" :active="request()->routeIs('bitacora.*')">
+                                {{ __('Auditoría') }}
+                            </x-nav-link>
+                        </li>
+                    @endmodulo
                 @endcan
 
                 @canany(['grupos.gestionar', 'materias.gestionar', 'docentes.gestionar', 'tutores.gestionar'])

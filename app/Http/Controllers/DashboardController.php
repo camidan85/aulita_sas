@@ -15,9 +15,13 @@ class DashboardController extends Controller
 {
     public function index()
     {
-        // Los padres tienen su propio portal.
+        // Los padres tienen su propio portal; el Super Admin su panel de escuelas.
         if (auth()->user()?->hasRole('padre')) {
             return redirect()->route('portal.dashboard');
+        }
+
+        if (auth()->user()?->hasRole('super_admin')) {
+            return redirect()->route('admin.escuelas.index');
         }
 
         $hoy = now()->toDateString();

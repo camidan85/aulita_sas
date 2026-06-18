@@ -15,16 +15,26 @@ class School extends Model
 
     protected $fillable = [
         'nombre', 'slug', 'cct', 'logo', 'direccion', 'telefono', 'correo',
-        'hora_corte_faltas', 'timezone', 'umbral_riesgo_calif', 'settings', 'estatus',
+        'hora_corte_faltas', 'timezone', 'umbral_riesgo_calif', 'qr_formato',
+        'modulos_ocultos', 'settings', 'estatus',
     ];
 
     protected $casts = [
         'settings' => 'array',
+        'modulos_ocultos' => 'array',
         'umbral_riesgo_calif' => 'decimal:2',
     ];
 
     public function users(): HasMany
     {
         return $this->hasMany(User::class);
+    }
+
+    /**
+     * ¿El módulo está activo para esta escuela? (no está en modulos_ocultos)
+     */
+    public function moduloActivo(string $clave): bool
+    {
+        return ! in_array($clave, $this->modulos_ocultos ?? [], true);
     }
 }
