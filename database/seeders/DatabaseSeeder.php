@@ -26,29 +26,32 @@ class DatabaseSeeder extends Seeder
         );
         $superAdmin->assignRole('super_admin');
 
-        // Escuela demo + director (para pruebas locales).
-        $escuela = School::firstOrCreate(
-            ['slug' => 'colegio-demo'],
-            [
-                'nombre' => 'Colegio Demo',
-                'telefono' => '5500000000',
-                'correo' => 'contacto@colegiodemo.test',
-                'hora_corte_faltas' => '07:15:00',
-            ]
-        );
+        // Datos demo SOLO fuera de producción (las factories requieren Faker, que
+        // es dependencia dev). En producción se siembran únicamente roles + super admin.
+        if (! app()->isProduction()) {
+            $escuela = School::firstOrCreate(
+                ['slug' => 'colegio-demo'],
+                [
+                    'nombre' => 'Colegio Demo',
+                    'telefono' => '5500000000',
+                    'correo' => 'contacto@colegiodemo.test',
+                    'hora_corte_faltas' => '07:15:00',
+                ]
+            );
 
-        $director = User::firstOrCreate(
-            ['email' => 'director@colegiodemo.test'],
-            [
-                'school_id' => $escuela->id,
-                'name' => 'Director Demo',
-                'password' => Hash::make('Password#1'),
-                'estatus' => 'activo',
-                'email_verified_at' => now(),
-            ]
-        );
-        $director->assignRole('director');
+            $director = User::firstOrCreate(
+                ['email' => 'director@colegiodemo.test'],
+                [
+                    'school_id' => $escuela->id,
+                    'name' => 'Director Demo',
+                    'password' => Hash::make('Password#1'),
+                    'estatus' => 'activo',
+                    'email_verified_at' => now(),
+                ]
+            );
+            $director->assignRole('director');
 
-        $this->call(DemoSchoolSeeder::class);
+            $this->call(DemoSchoolSeeder::class);
+        }
     }
 }
