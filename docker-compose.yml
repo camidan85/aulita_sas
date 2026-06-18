@@ -1,0 +1,73 @@
+# AULITA — orquestación para producción/staging.
+# Local de desarrollo se usa `php artisan serve` + XAMPP; esto es el entorno destino.
+services:
+  app:
+    build:
+      context: .
+      dockerfile: docker/php/Dockerfile
+    container_name: aulita_app
+    restart: unless-stopped
+    working_dir: /var/www
+    volumes:
+      - ./:/var/www
+    depends_on:
+      - mysql
+      - redis
+    networks: [aulita]
+
+  nginx:
+    image: nginx:1.27-alpine
+    container_name: aulita_nginx
+    restart: unless-stopped
+    ports:
+      - "8080:80"
+    volumes:
+      - ./:/var/www
+      - ./docker/nginx/default.conf:/etc/nginx/conf.d/default.conf:ro
+    depends_on:
+      - app
+    networks: [aulita]
+
+  mysql:
+    image: mysql:8.0
+    container_name: aulita_mysql
+    restart: unless-stopped
+    environment:
+      MYSQL_DATABASE: ${DB_DATABASE:-aulita}
+      MYSQL_USER: ${DB_USERNAME:-aulita}
+      MYSQL_PASSWORD: ${DB_PASSWORD:-secret}
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD:-secret}
+    volumes:
+      - aulita_mysql:/var/lib/mysql
+    ports:
+      - "3307:3306"
+    networks: [aulita]
+
+  redis:
+    image: redis:7-alpine
+    container_name: aulita_redis
+    restart: unless-stopped
+    networks: [aulita]
+
+  worker:
+    build:
+      context: .
+      dockerfile: docker/php/Dockerfile
+    container_name: aulita_worker
+    restart: unless-stopped
+    working_dir: /var/www
+    command: supervisord -c /var/www/docker/supervisor/supervisord.conf
+    volumes:
+      - ./:/var/www
+    depends_on:
+      - app
+      - redis
+      - mysql
+    networks: [aulita]
+
+networks:
+  aulita:
+    driver: bridge
+
+volumes:
+  aulita_mysql:

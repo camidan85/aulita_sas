@@ -1,0 +1,18 @@
+{
+    "name": "AULITA",
+    "short_name": "AULITA",
+    "description": "Portal de gestión escolar para padres y profesores",
+    "start_url": "/dashboard",
+    "scope": "/",
+    "display": "standalone",
+    "background_color": "#f6f8fb",
+    "theme_color": "#2563eb",
+    "icons": [
+        {
+            "src": "/icons/aulita.svg",
+            "sizes": "any",
+            "type": "image/svg+xml",
+            "purpose": "any maskable"
+        }
+    ]
+}
