@@ -25,4 +25,15 @@ class DestinatariosEscolares
 
         return array_merge($tutores, $administrativos);
     }
+
+    /**
+     * Solo los tutores del alumno (principal y secundario). Se usa para el
+     * aviso de cada asistencia, que no debe saturar al administrativo.
+     *
+     * @return array<int, object>
+     */
+    public static function tutores(Alumno $alumno): array
+    {
+        return $alumno->loadMissing('tutores')->tutores->all();
+    }
 }

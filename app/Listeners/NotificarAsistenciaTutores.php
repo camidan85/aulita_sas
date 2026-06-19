@@ -8,9 +8,10 @@ use App\Support\DestinatariosEscolares;
 use Illuminate\Support\Facades\Notification;
 
 /**
- * Al registrarse una asistencia, notifica a los tutores (principal y secundario)
- * y al personal administrativo de la escuela (RN-N01). Las notificaciones se
- * encolan; un fallo de WhatsApp no bloquea el correo (RN-N03).
+ * Al registrarse una asistencia, notifica SOLO a los tutores (principal y
+ * secundario). El administrativo no recibe un correo por cada asistencia para
+ * no saturarlo; sí recibe las ausencias y alertas de riesgo. Las notificaciones
+ * se encolan; un fallo de WhatsApp no bloquea el correo (RN-N03).
  */
 class NotificarAsistenciaTutores
 {
@@ -18,7 +19,7 @@ class NotificarAsistenciaTutores
     {
         $asistencia = $event->asistencia;
 
-        $destinatarios = DestinatariosEscolares::tutoresYAdministrativos($asistencia->alumno);
+        $destinatarios = DestinatariosEscolares::tutores($asistencia->alumno);
 
         if (empty($destinatarios)) {
             return;

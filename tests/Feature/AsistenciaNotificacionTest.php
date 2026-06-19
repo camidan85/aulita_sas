@@ -19,7 +19,7 @@ class AsistenciaNotificacionTest extends TestCase
 {
     use RefreshDatabase;
 
-    public function test_notifica_a_tutores_y_administrativo_por_correo_y_whatsapp(): void
+    public function test_notifica_solo_a_tutores_por_correo_y_whatsapp(): void
     {
         Notification::fake();
         $this->seed(RolesAndPermissionsSeeder::class);
@@ -46,7 +46,7 @@ class AsistenciaNotificacionTest extends TestCase
             return in_array('mail', $channels, true) && in_array(WhatsAppChannel::class, $channels, true);
         });
 
-        // El administrativo recibe (al menos correo).
-        Notification::assertSentTo($admin, AsistenciaRegistradaNotification::class);
+        // El administrativo NO recibe el aviso de cada asistencia (para no saturarlo).
+        Notification::assertNotSentTo($admin, AsistenciaRegistradaNotification::class);
     }
 }
