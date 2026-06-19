@@ -44,6 +44,9 @@
                             </x-nav-link>
                         </li>
                     @endmodulo
+                @endcan
+
+                @canany(['portal.ver', 'citas.gestionar'])
                     @modulo('citas')
                         <li class="nav-item">
                             <x-nav-link :href="route('citas.index')" :active="request()->routeIs('citas.*')">
@@ -51,7 +54,7 @@
                             </x-nav-link>
                         </li>
                     @endmodulo
-                @endcan
+                @endcanany
 
                 @can('alumnos.ver')
                     <li class="nav-item">
