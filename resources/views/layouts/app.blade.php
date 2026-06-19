@@ -7,7 +7,9 @@
     <title>{{ config('app.name', 'AULITA') }}</title>
     <link rel="manifest" href="/manifest.webmanifest">
     <meta name="theme-color" content="#2563eb">
-    <link rel="apple-touch-icon" href="/icons/aulita.svg">
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('img/aulita-icon-32.png') }}">
+    <link rel="icon" type="image/png" sizes="192x192" href="{{ asset('img/aulita-icon-192.png') }}">
+    <link rel="apple-touch-icon" href="{{ asset('img/aulita-icon-192.png') }}">
     @vite(['resources/scss/app.scss', 'resources/js/app.js'])
 </head>
 <body>

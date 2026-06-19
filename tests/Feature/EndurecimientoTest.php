@@ -11,7 +11,7 @@ class EndurecimientoTest extends TestCase
 
     public function test_respuestas_incluyen_cabeceras_de_seguridad(): void
     {
-        $this->get('/')
+        $this->get('/login')
             ->assertOk()
             ->assertHeader('X-Content-Type-Options', 'nosniff')
             ->assertHeader('X-Frame-Options', 'SAMEORIGIN')

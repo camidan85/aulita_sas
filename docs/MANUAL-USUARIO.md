@@ -1,7 +1,15 @@
+<p align="center">
+  <img src="../public/img/aulita-logo.png" alt="AULITA" width="280">
+</p>
+
 # Manual de usuario — AULITA
 
 > Plataforma de control escolar (asistencia, conducta, calificaciones, avisos y portal de padres).
 > Acceso: **https://aulita.desarrollodesistemasinformaticos.com**
+
+> 📷 **Sobre las capturas de pantalla:** a lo largo del manual verás bloques como
+> _「 📷 Captura: … 」_. Son los lugares donde conviene pegar una imagen real del sistema.
+> Toma la captura desde el sitio y reemplaza el bloque por tu imagen.
 
 Este manual explica, **paso a paso y por tipo de usuario**, cómo se usa el sistema. Si solo te interesa
 "cómo se toma la asistencia", ve directo a la sección **2. El flujo de asistencia (lo más importante)**.
@@ -53,6 +61,8 @@ Cada alumno tiene un **QR único**. Se genera solo cuando das de alta al alumno.
 3. Se abre la credencial con el QR → **Imprimir** (o guardarlo como imagen/PDF).
 4. Ese QR se pega en la **credencial**, gafete o cuaderno del alumno.
 
+> 「 📷 Captura: credencial del alumno con su código QR y el botón **Imprimir** 」
+
 > 💡 El **contenido** del QR (qué dato lleva: matrícula, CURP, etc.) lo define el Super Admin por escuela.
 > Mientras no cambies ese formato, **el QR impreso sigue sirviendo todo el ciclo**.
 
@@ -74,6 +84,8 @@ Lo hace quien recibe a los alumnos (normalmente **Prefecto** o **Docente**), des
    | 🔴 **Error** | QR no válido o de otra escuela | Revisa el QR / regístralo a mano después |
 
 6. El recuadro **se quita solo en ~2.6 segundos** y queda listo para el siguiente alumno. La fila avanza rápido.
+
+> 「 📷 Captura: pantalla **Escanear QR** mostrando el recuadro verde de **Presente** con el nombre del alumno 」
 
 > ✅ **No se registra dos veces.** Si escaneas al mismo alumno otra vez, sale **"Ya registrada"** y **no se envía
 > otro correo**. Por eso puedes escanear con confianza aunque la cámara "lea de más".
@@ -102,6 +114,8 @@ No tienes que hacer nada; el sistema lo hace solo:
 
 > Los estatus se ven como etiquetas de color: 🟢 Presente, 🟡 Retardo, 🔴 Falta, ⚪ Falta pendiente, 🔵 Justificada.
 
+> 「 📷 Captura: pantalla **Asistencias** con la tabla del día y las etiquetas de color 」
+
 ---
 
 ## 3. Entrar al sistema y recuperar contraseña
@@ -110,6 +124,8 @@ No tienes que hacer nada; el sistema lo hace solo:
 1. Entra a **https://aulita.desarrollodesistemasinformaticos.com**.
 2. Botón **Iniciar sesión** (o **/login**).
 3. Escribe tu **correo** y **contraseña** → **Entrar**.
+
+> 「 📷 Captura: pantalla de **inicio de sesión** (con el logo de Aulita) 」
 
 ### Olvidé mi contraseña
 1. En la pantalla de inicio de sesión, clic en **"¿Olvidaste tu contraseña?"**.
@@ -155,6 +171,8 @@ Es el dueño de la plataforma. Administra **todas las escuelas**.
    (p. ej. dejar **solo Asistencia**).
 4. En **formato de QR** define qué dato lleva el QR de los alumnos.
 5. **Guardar**.
+
+> 「 📷 Captura: formulario de la escuela con la sección **Módulos visibles** 」
 
 **Quitar o agregar módulos a una escuela existente**
 1. Menú **Escuelas** → en la escuela, **Configurar/Editar**.
@@ -223,6 +241,8 @@ Rol de **oficina / control escolar**. **No toma asistencia** (la consulta).
 3. Botón **Importar** → sube el Excel.
 4. El sistema crea los alumnos y **genera su QR** automáticamente.
 
+> 「 📷 Captura: pantalla **Alumnos** con los botones **Descargar plantilla** e **Importar** 」
+
 ---
 
 ### 5.6 Docente
@@ -254,6 +274,8 @@ Los papás tienen un **portal aparte** para seguir a su hijo.
 - Ve la **asistencia** de su hijo, **avisos**, **reportes** y **calificaciones**.
 - Puede **firmar de enterado** avisos/reportes que lo requieran.
 - Puede **solicitar una cita** (menú **Citas → Nueva**).
+
+> 「 📷 Captura: **Mi portal** mostrando la asistencia y avisos del hijo 」
 
 ---
 

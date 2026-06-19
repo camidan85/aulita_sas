@@ -35,7 +35,7 @@
         </main>
 
         <footer class="border-top py-3 text-center text-muted small">
-            AULITA &middot; Laravel v{{ Illuminate\Foundation\Application::VERSION }}
+            &copy; {{ date('Y') }} Aulita by MyB Solutions
         </footer>
     </div>
 </body>
