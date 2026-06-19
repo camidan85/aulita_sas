@@ -4,6 +4,7 @@ namespace App\Notifications;
 
 use App\Models\Asistencia;
 use App\Notifications\Channels\WhatsAppChannel;
+use App\Support\Remitente;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
@@ -39,6 +40,7 @@ class AsistenciaRegistradaNotification extends Notification implements ShouldQue
         $alumno = $a->alumno;
 
         return (new MailMessage)
+            ->from(...Remitente::para($a->school_id))
             ->subject('Registro de asistencia · '.$alumno->nombreCompleto())
             ->greeting('Aviso de asistencia')
             ->line("Alumno: {$alumno->nombreCompleto()}")

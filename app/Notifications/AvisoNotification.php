@@ -4,6 +4,7 @@ namespace App\Notifications;
 
 use App\Models\Aviso;
 use App\Notifications\Channels\WhatsAppChannel;
+use App\Support\Remitente;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
@@ -33,6 +34,7 @@ class AvisoNotification extends Notification implements ShouldQueue
     public function toMail(object $notifiable): MailMessage
     {
         $mail = (new MailMessage)
+            ->from(...Remitente::para($this->aviso->school_id))
             ->subject('Aviso: '.$this->aviso->titulo)
             ->greeting($this->aviso->titulo)
             ->line($this->aviso->contenido);

@@ -4,6 +4,7 @@ namespace App\Notifications;
 
 use App\Models\Reporte;
 use App\Notifications\Channels\WhatsAppChannel;
+use App\Support\Remitente;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
@@ -35,6 +36,7 @@ class ReporteNotification extends Notification implements ShouldQueue
         $r = $this->reporte->loadMissing('alumno');
 
         $mail = (new MailMessage)
+            ->from(...Remitente::para($r->school_id))
             ->subject($r->tipoLabel().' · '.$r->alumno->nombreCompleto())
             ->greeting($r->tipoLabel())
             ->line("Alumno: {$r->alumno->nombreCompleto()}")

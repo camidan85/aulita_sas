@@ -4,6 +4,7 @@ namespace App\Notifications;
 
 use App\Models\AlertaRiesgo;
 use App\Notifications\Channels\WhatsAppChannel;
+use App\Support\Remitente;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
@@ -38,6 +39,7 @@ class AlertaRiesgoNotification extends Notification implements ShouldQueue
         $alumno = $this->alerta->loadMissing('alumno')->alumno;
 
         return (new MailMessage)
+            ->from(...Remitente::para($this->alerta->school_id))
             ->subject('Alerta de riesgo · '.$alumno->nombreCompleto())
             ->greeting('Alerta de riesgo escolar')
             ->line("Se ha generado una alerta para {$alumno->nombreCompleto()}.")

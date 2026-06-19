@@ -4,6 +4,7 @@ namespace App\Notifications;
 
 use App\Models\Asistencia;
 use App\Notifications\Channels\WhatsAppChannel;
+use App\Support\Remitente;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
@@ -38,6 +39,7 @@ class AusenciaNotification extends Notification implements ShouldQueue
         $alumno = $this->asistencia->loadMissing('alumno.grupo.grado')->alumno;
 
         return (new MailMessage)
+            ->from(...Remitente::para($this->asistencia->school_id))
             ->subject('Ausencia registrada · '.$alumno->nombreCompleto())
             ->greeting('Aviso de ausencia')
             ->line("Le informamos que {$alumno->nombreCompleto()} no ha registrado asistencia hoy.")
