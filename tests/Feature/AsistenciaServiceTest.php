@@ -67,6 +67,9 @@ class AsistenciaServiceTest extends TestCase
 
         $this->assertSame('duplicado', $segundo['estado']);
         $this->assertSame(1, Asistencia::count());
+
+        // Un re-escaneo NO debe disparar el evento otra vez → el correo sale 1 sola vez.
+        Event::assertDispatchedTimes(AsistenciaRegistrada::class, 1);
     }
 
     public function test_falta_pendiente_se_convierte_en_retardo(): void
