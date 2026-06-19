@@ -48,7 +48,7 @@ class AsistenciaRegistradaNotification extends Notification implements ShouldQue
             ->line('Fecha: '.$a->fecha->format('d/m/Y'))
             ->line('Hora: '.$a->hora)
             ->line('Estatus: '.ucfirst($a->estatus))
-            ->line('Registró: '.($a->registradoPor?->name ?? 'Sistema'));
+            ->salutation(Remitente::nombre($a->school_id));
     }
 
     /**

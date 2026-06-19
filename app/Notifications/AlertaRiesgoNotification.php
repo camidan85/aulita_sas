@@ -45,7 +45,8 @@ class AlertaRiesgoNotification extends Notification implements ShouldQueue
             ->line("Se ha generado una alerta para {$alumno->nombreCompleto()}.")
             ->line('Motivo: '.$this->alerta->descripcion())
             ->line($this->alerta->detalle ?? '')
-            ->line('Le sugerimos comunicarse con la escuela.');
+            ->line('Le sugerimos comunicarse con la escuela.')
+            ->salutation(Remitente::nombre($this->alerta->school_id));
     }
 
     public function toWhatsApp(object $notifiable): array

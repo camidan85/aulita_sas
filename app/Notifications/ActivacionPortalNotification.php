@@ -30,6 +30,7 @@ class ActivacionPortalNotification extends Notification implements ShouldQueue
             ->greeting('Bienvenido a AULITA')
             ->line('Para activar tu cuenta y crear tu contraseña, da clic en el botón. El enlace expira en 24 horas.')
             ->action('Activar cuenta', $url)
-            ->line('Si no solicitaste esto, ignora este mensaje.');
+            ->line('Si no solicitaste esto, ignora este mensaje.')
+            ->salutation(Remitente::nombre($this->activation->school_id));
     }
 }

@@ -45,7 +45,8 @@ class AusenciaNotification extends Notification implements ShouldQueue
             ->line("Le informamos que {$alumno->nombreCompleto()} no ha registrado asistencia hoy.")
             ->line('Grupo: '.($alumno->grupo?->nombreCompleto() ?? '—'))
             ->line('Fecha: '.$this->asistencia->fecha->format('d/m/Y'))
-            ->line('Si su hijo(a) ingresa más tarde, el registro se actualizará a retardo.');
+            ->line('Si su hijo(a) ingresa más tarde, el registro se actualizará a retardo.')
+            ->salutation(Remitente::nombre($this->asistencia->school_id));
     }
 
     public function toWhatsApp(object $notifiable): array

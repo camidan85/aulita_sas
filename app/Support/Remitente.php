@@ -7,18 +7,22 @@ use App\Models\School;
 class Remitente
 {
     /**
+     * Nombre visible del remitente/cierre: "Aulita - {Escuela}".
+     */
+    public static function nombre(?int $schoolId): string
+    {
+        $escuela = $schoolId ? School::find($schoolId)?->nombre : null;
+
+        return $escuela ? "Aulita - {$escuela}" : 'Aulita';
+    }
+
+    /**
      * Devuelve [direccion, nombre] para el From de los correos.
-     * El nombre es "Aulita - {Escuela}" según el school_id del aviso.
      *
      * @return array{0: string, 1: string}
      */
     public static function para(?int $schoolId): array
     {
-        $nombre = $schoolId ? School::find($schoolId)?->nombre : null;
-
-        return [
-            config('mail.from.address'),
-            $nombre ? "Aulita - {$nombre}" : 'Aulita',
-        ];
+        return [config('mail.from.address'), self::nombre($schoolId)];
     }
 }

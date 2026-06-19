@@ -47,7 +47,7 @@ class ReporteNotification extends Notification implements ShouldQueue
             $mail->line('Este reporte requiere su firma de enterado.');
         }
 
-        return $mail;
+        return $mail->salutation(Remitente::nombre($r->school_id));
     }
 
     public function toWhatsApp(object $notifiable): array
