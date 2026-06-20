@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Manual de usuario — AULITA</title>
+<style>
+  @page { size: A4; margin: 2cm; }
+  body { font-family: "Segoe UI", Arial, sans-serif; color: #1f2933; font-size: 11pt; line-height: 1.5; }
+  h1 { color: #16313c; font-size: 22pt; margin: 0 0 6px; }
+  h2 { color: #16313c; font-size: 16pt; border-bottom: 2px solid #2f6f7e; padding-bottom: 4px; margin-top: 26px; }
+  h3 { color: #2f6f7e; font-size: 13pt; margin-top: 18px; }
+  h4 { color: #3a4a55; font-size: 11.5pt; margin: 14px 0 4px; }
+  table { border-collapse: collapse; width: 100%; margin: 10px 0; font-size: 10pt; }
+  th, td { border: 1px solid #c4ced6; padding: 6px 8px; text-align: left; vertical-align: top; }
+  th { background: #2f6f7e; color: #fff; }
+  tr:nth-child(even) td { background: #f3f7f9; }
+  .nota { background: #eef6f8; border-left: 4px solid #2f6f7e; padding: 8px 12px; margin: 10px 0; }
+  .tip { background: #fff7e6; border-left: 4px solid #e0a800; padding: 8px 12px; margin: 10px 0; }
+  .ok { background: #eaf7ec; border-left: 4px solid #2e9e4f; padding: 8px 12px; margin: 10px 0; }
+  .captura {
+    border: 2px dashed #9aa7b4; background: #f4f7fa; border-radius: 8px;
+    padding: 30px 16px; margin: 12px 0; text-align: center; color: #5b6b7a; min-height: 150px;
+  }
+  .captura b { color: #2f6f7e; }
+  .cover { text-align: center; margin: 40px 0 30px; }
+  .cover img { width: 280px; }
+  .muted { color: #6b7a87; }
+  code { background: #eef2f5; padding: 1px 5px; border-radius: 4px; font-size: 10pt; }
+  ol, ul { margin: 6px 0 6px 22px; }
+  .pagebreak { page-break-before: always; }
+</style>
+</head>
+<body>
+
+<div class="cover">
+  <img src="file:///C:/xampp/proyectos-laravel/aulita/public/img/aulita-logo.png" alt="AULITA">
+  <h1>Manual de usuario — AULITA</h1>
+  <p class="muted">Plataforma de control escolar · asistencia, conducta, calificaciones, avisos y portal de padres</p>
+  <p class="muted">Acceso: <b>https://aulita.desarrollodesistemasinformaticos.com</b></p>
+</div>
+
+<div class="nota">
+  <b>Sobre las capturas de pantalla:</b> los recuadros punteados <b>「 Pegar captura aquí 」</b> son los
+  lugares donde debes pegar una imagen real del sistema. Toma la captura desde el sitio y pégala dentro del recuadro.
+</div>
+
+<h2>1. Conceptos básicos</h2>
+<ul>
+  <li><b>Cada escuela es independiente.</b> Los usuarios de una escuela solo ven los datos de su escuela.</li>
+  <li><b>Roles (tipos de usuario):</b> Super Admin, Director, Subdirector, Prefecto, Administrativo, Docente y Padre. Cada rol ve <b>solo los menús que le corresponden</b>.</li>
+  <li><b>Módulos:</b> Asistencia, Alertas, Calificaciones, Reportes (conducta), Avisos, Citas, Portal de padres y Auditoría. El Super Admin puede <b>encender o apagar módulos por escuela</b> (una escuela puede tener, por ejemplo, <b>solo Asistencia</b>).</li>
+  <li><b>Menú principal:</b> está arriba (barra blanca). Lo que ves depende de tu rol y de los módulos activos.</li>
+  <li>En el celular, el menú se abre con el <b>botón de las tres rayas</b> (☰) arriba a la derecha.</li>
+</ul>
+
+<h2 class="pagebreak">2. El flujo de asistencia (lo más importante)</h2>
+<p>La asistencia se toma <b>escaneando el código QR de cada alumno</b> en la entrada. Hay <b>3 momentos</b>:</p>
+
+<h3>Paso A — Una sola vez: generar e imprimir el QR de cada alumno</h3>
+<ol>
+  <li>Menú <b>Alumnos</b>.</li>
+  <li>Entra al alumno → enlace <b>QR</b>.</li>
+  <li>Se abre la credencial con el QR → <b>Imprimir</b> (o guardar como imagen/PDF).</li>
+  <li>Ese QR se pega en la <b>credencial</b>, gafete o cuaderno del alumno.</li>
+</ol>
+<div class="captura"><b>「 Pegar captura aquí 」</b><br>Credencial del alumno con su código QR y el botón Imprimir</div>
+<div class="tip"><b>Tip:</b> el <b>contenido</b> del QR (matrícula, CURP, etc.) lo define el Super Admin por escuela. Mientras no cambies ese formato, el QR impreso sirve todo el ciclo.</div>
+
+<h3>Paso B — Cada día en la entrada: escanear</h3>
+<p>Lo hace quien recibe a los alumnos (normalmente <b>Prefecto</b> o <b>Docente</b>), desde un <b>celular o tableta</b>.</p>
+<ol>
+  <li>Inicia sesión en el celular.</li>
+  <li>Menú <b>Escanear QR</b>.</li>
+  <li>La primera vez el navegador pedirá <b>permiso para usar la cámara</b> → acepta.</li>
+  <li>Apunta la cámara al QR. <b>No hay que presionar nada</b>: en cuanto lo enfoca, registra.</li>
+  <li>Aparece un <b>recuadro grande de color</b> y <b>el celular vibra</b>:</li>
+</ol>
+<table>
+  <tr><th>Color</th><th>Significado</th><th>¿Qué hacer?</th></tr>
+  <tr><td>🟢 Presente</td><td>Llegó a tiempo</td><td>Pasa al siguiente</td></tr>
+  <tr><td>🟡 Retardo</td><td>Llegó después de la hora de corte</td><td>Pasa al siguiente</td></tr>
+  <tr><td>🔵 Ya registrada</td><td>Ese alumno ya fue escaneado hoy</td><td>Pasa al siguiente (no se duplica)</td></tr>
+  <tr><td>🔴 Error</td><td>QR no válido o de otra escuela</td><td>Revisa el QR / regístralo a mano después</td></tr>
+</table>
+<p>El recuadro <b>se quita solo en ~2.6 segundos</b> y queda listo para el siguiente. La fila avanza rápido.</p>
+<div class="captura"><b>「 Pegar captura aquí 」</b><br>Pantalla "Escanear QR" con el recuadro verde de "Presente" y el nombre del alumno</div>
+<div class="ok"><b>No se registra dos veces.</b> Si escaneas al mismo alumno otra vez, sale "Ya registrada" y <b>no se envía otro correo</b>.</div>
+
+<h4>¿Cómo decide si es Presente o Retardo?</h4>
+<p>Cada escuela tiene una <b>hora de corte</b> (por ejemplo, 7:15 am): antes o justo a la hora → <b>Presente</b>; después → <b>Retardo</b>.</p>
+
+<h3>Paso C — Automático: faltas y avisos a los papás</h3>
+<ul>
+  <li><b>Al registrar</b> cada asistencia, se manda un <b>correo al tutor</b> ("presente/retardo").</li>
+  <li><b>Pasada la hora de corte</b>, a quien no fue escaneado el sistema lo marca como <b>falta</b> y <b>avisa a los tutores</b> (y al administrativo).</li>
+  <li>Si el alumno llega tarde y lo escaneas, su registro cambia de falta a <b>retardo</b> automáticamente.</li>
+</ul>
+
+<h3>Ver / revisar la asistencia del día</h3>
+<ol>
+  <li>Menú <b>Asistencias</b>.</li>
+  <li>Arriba puedes <b>elegir la fecha</b>.</li>
+  <li>La tabla muestra hora, alumno, grupo, <b>estatus</b>, origen y quién registró.</li>
+</ol>
+<p class="muted">Estatus de color: 🟢 Presente, 🟡 Retardo, 🔴 Falta, ⚪ Falta pendiente, 🔵 Justificada.</p>
+<div class="captura"><b>「 Pegar captura aquí 」</b><br>Pantalla "Asistencias" con la tabla del día y las etiquetas de color</div>
+
+<h2 class="pagebreak">3. Entrar al sistema y recuperar contraseña</h2>
+<h4>Iniciar sesión</h4>
+<ol>
+  <li>Entra a <b>https://aulita.desarrollodesistemasinformaticos.com</b> (te lleva al login).</li>
+  <li>Escribe tu <b>correo</b> y <b>contraseña</b> → <b>Entrar</b>.</li>
+</ol>
+<div class="captura"><b>「 Pegar captura aquí 」</b><br>Pantalla de inicio de sesión (con el logo de Aulita)</div>
+<h4>Olvidé mi contraseña</h4>
+<ol>
+  <li>En el login, clic en <b>"¿Olvidaste tu contraseña?"</b>.</li>
+  <li>Escribe tu correo → <b>Enviar enlace</b>.</li>
+  <li>Llega el correo <b>"Restablecer tu contraseña"</b> → clic en el botón → escribe la nueva contraseña.</li>
+</ol>
+<h4>Cambiar mis datos</h4>
+<p>Arriba a la derecha, clic en <b>tu nombre → Perfil</b>.</p>
+
+<h2 class="pagebreak">4. Qué puede hacer cada usuario (resumen)</h2>
+<table>
+  <tr><th>Acción / Menú</th><th>Super Admin</th><th>Director</th><th>Subdir.</th><th>Prefecto</th><th>Admvo.</th><th>Docente</th><th>Padre</th></tr>
+  <tr><td>Crear escuelas y módulos</td><td>✅</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+  <tr><td>Ver alumnos</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td><td>—</td></tr>
+  <tr><td>Crear / editar alumnos</td><td>✅</td><td>✅</td><td>—</td><td>—</td><td>✅</td><td>—</td><td>—</td></tr>
+  <tr><td><b>Escanear QR (asistencia)</b></td><td>✅</td><td>✅</td><td>—</td><td>✅</td><td>—</td><td>✅</td><td>—</td></tr>
+  <tr><td>Ver asistencias</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td><td>—</td></tr>
+  <tr><td>Capturar calificaciones</td><td>✅</td><td>✅</td><td>✅</td><td>—</td><td>—</td><td>✅</td><td>—</td></tr>
+  <tr><td>Crear reportes de conducta</td><td>✅</td><td>✅</td><td>—</td><td>✅</td><td>—</td><td>✅</td><td>—</td></tr>
+  <tr><td>Crear avisos</td><td>✅</td><td>✅</td><td>✅</td><td>—</td><td>✅</td><td>✅</td><td>—</td></tr>
+  <tr><td>Gestionar citas</td><td>✅</td><td>✅</td><td>—</td><td>✅</td><td>✅</td><td>—</td><td>pide cita</td></tr>
+  <tr><td>Catálogos</td><td>✅</td><td>✅</td><td>parcial</td><td>—</td><td>parcial</td><td>—</td><td>—</td></tr>
+  <tr><td>Auditoría (bitácora)</td><td>✅</td><td>✅</td><td>✅</td><td>—</td><td>✅</td><td>—</td><td>—</td></tr>
+  <tr><td>Portal de padres</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>✅</td></tr>
+</table>
+
+<h2 class="pagebreak">5. Guía por rol</h2>
+
+<h3>5.1 Super Admin</h3>
+<p>Administra <b>todas las escuelas</b>.</p>
+<h4>Dar de alta una escuela</h4>
+<ol>
+  <li>Menú <b>Escuelas → Crear escuela</b>.</li>
+  <li>Llena nombre, datos y la <b>hora de corte de faltas</b>.</li>
+  <li>En <b>"Módulos visibles"</b> marca/desmarca módulos (p. ej. dejar solo Asistencia).</li>
+  <li>Define el <b>formato de QR</b>. → <b>Guardar</b>.</li>
+</ol>
+<div class="captura"><b>「 Pegar captura aquí 」</b><br>Formulario de la escuela con la sección "Módulos visibles"</div>
+<h4>Quitar o agregar módulos a una escuela</h4>
+<ol>
+  <li>Menú <b>Escuelas</b> → en la escuela, <b>Configurar/Editar</b>.</li>
+  <li>Sección <b>"Módulos visibles"</b> → marca/desmarca → <b>Guardar</b>.</li>
+</ol>
+<h4>Trabajar dentro de una escuela</h4>
+<p>En <b>Escuelas</b> usa <b>"Seleccionar"</b> en la escuela deseada (aparece la etiqueta amarilla "Gestionando: …"). Para salir, clic en <b>"salir"</b> junto a la etiqueta.</p>
+
+<h3>5.2 Director</h3>
+<p>Hace casi todo dentro de su escuela: <b>alumnos</b> (crear/editar/QR), <b>escanear</b> y ver asistencia, <b>calificaciones, reportes, avisos, citas, auditoría y catálogos</b>. Es el rol para <b>supervisar</b> la captura.</p>
+
+<h3>5.3 Subdirector</h3>
+<p>Apoyo académico. <b>No toma asistencia</b> (solo la consulta). <b>Captura calificaciones</b>, gestiona docentes/grupos/materias/horarios, <b>crea avisos</b>, ve reportes y auditoría.</p>
+
+<h3>5.4 Prefecto</h3>
+<p>Operación diaria en la entrada. <b>Escanear QR</b> (su función estrella), ver asistencias, <b>crear reportes de conducta</b>, <b>gestionar citas</b>, ver alumnos y avisos.</p>
+
+<h3>5.5 Administrativo</h3>
+<p>Oficina / control escolar. <b>No toma asistencia</b> (la consulta). <b>Alta y edición de alumnos</b> (incluida carga masiva por Excel), gestiona tutores y grupos, <b>crea avisos</b> y gestiona citas.</p>
+<h4>Carga masiva de alumnos (Excel)</h4>
+<ol>
+  <li>Menú <b>Alumnos</b>.</li>
+  <li>Botón <b>Descargar plantilla</b> → llena el Excel.</li>
+  <li>Botón <b>Importar</b> → sube el Excel. Se crean los alumnos y se <b>genera su QR</b>.</li>
+</ol>
+<div class="captura"><b>「 Pegar captura aquí 」</b><br>Pantalla "Alumnos" con los botones Descargar plantilla e Importar</div>
+
+<h3>5.6 Docente</h3>
+<p><b>Escanear QR</b>, <b>capturar calificaciones</b>, <b>crear reportes</b> y <b>avisos</b>, ver alumnos y asistencias.</p>
+<h4>Capturar calificaciones</h4>
+<ol>
+  <li>Menú <b>Calificaciones → Capturar</b>.</li>
+  <li>Elige grupo/materia/periodo, escribe las calificaciones → <b>Guardar</b>.</li>
+  <li>Desde <b>Calificaciones</b> se generan <b>boletas</b> y <b>kardex</b> (PDF).</li>
+</ol>
+
+<h3>5.7 Padre / Tutor (portal)</h3>
+<h4>Activar la cuenta (primera vez)</h4>
+<ol>
+  <li>Entra a <b>/activar</b> (o el enlace de la escuela).</li>
+  <li>Escribe su <b>correo</b> (el registrado en la escuela) → <b>Enviar</b>.</li>
+  <li>Llega el correo <b>"Activa tu cuenta del portal de padres"</b> → crea su contraseña.</li>
+</ol>
+<h4>Dentro del portal (Mi portal)</h4>
+<p>Ve la <b>asistencia</b> de su hijo, <b>avisos</b>, <b>reportes</b> y <b>calificaciones</b>; puede <b>firmar de enterado</b> y <b>solicitar una cita</b>.</p>
+<div class="captura"><b>「 Pegar captura aquí 」</b><br>"Mi portal" mostrando la asistencia y avisos del hijo</div>
+
+<h2 class="pagebreak">6. Correos automáticos: quién recibe qué</h2>
+<table>
+  <tr><th>Evento</th><th>Tutores (papás)</th><th>Administrativo</th></tr>
+  <tr><td>Asistencia registrada (cada escaneo)</td><td>✅</td><td>—</td></tr>
+  <tr><td>Ausencia / falta (no llegó)</td><td>✅</td><td>✅</td></tr>
+  <tr><td>Alerta de riesgo</td><td>✅</td><td>✅</td></tr>
+  <tr><td>Aviso dirigido</td><td>✅ (destinatarios)</td><td>—</td></tr>
+  <tr><td>Reporte de conducta</td><td>✅</td><td>—</td></tr>
+  <tr><td>Activación del portal</td><td>✅ (el papá)</td><td>—</td></tr>
+</table>
+<div class="nota">El administrativo <b>no</b> recibe un correo por cada asistencia (sería demasiado); solo ausencias y alertas. Todos los correos cierran con <b>"Saludos, Aulita - (nombre de la escuela)"</b>.</div>
+
+<h2 class="pagebreak">7. Preguntas frecuentes</h2>
+<p><b>¿Tengo que presionar algo para registrar?</b> No. Con enfocar el QR se registra y aparece el recuadro de color + vibración.</p>
+<p><b>Escaneé dos veces al mismo alumno, ¿pasa algo?</b> No. La segunda vez dice "Ya registrada" y no manda otro correo.</p>
+<p><b>La cámara no abre.</b> Da <b>permiso de cámara</b> al navegador y revisa que ninguna otra app la use.</p>
+<p><b>Un alumno olvidó su QR.</b> Regístralo luego desde su credencial; o el sistema lo marca falta y, al escanearlo, cambia a retardo.</p>
+<p><b>¿Por qué un usuario no ve cierto menú?</b> Su rol no tiene ese permiso, o ese módulo está apagado para la escuela (lo controla el Super Admin).</p>
+<p><b>¿Cómo cambio el dato del QR?</b> Super Admin → Escuelas → formato de QR. Si lo cambias, hay que reimprimir los QR.</p>
+
+<p style="margin-top:40px; text-align:center;" class="muted">© <span id="y"></span> Aulita by MyB Solutions — Manual de usuario</p>
+</body>
+</html>
